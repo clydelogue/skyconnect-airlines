@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyConnect Airlines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ==================== LOGIN SCREEN ==================== -->
+  <div id="login-screen" class="screen active">
+    <div class="login-container">
+      <div class="login-brand">
+        <div class="logo">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <path d="M24 4L6 20h6v20h24V20h6L24 4z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 28c4-2 8 2 12 0s8-2 12 0" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="24" cy="16" r="3" fill="currentColor"/>
+            <path d="M15 8l9-4 9 4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M4 24h8M36 24h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h1>SkyConnect Airlines</h1>
+        <p class="tagline">Your journey, our commitment</p>
+      </div>
+      <div class="login-card">
+        <h2>Sign In</h2>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" value="sarah.chen@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" value="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+        </form>
+        <p class="login-footer">SkyMiles member? <a href="#">Join now</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DASHBOARD ==================== -->
+  <div id="dashboard-screen" class="screen">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <svg viewBox="0 0 48 48" width="32" height="32">
+          <path d="M15 8l9-4 9 4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M4 24h8M36 24h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="24" cy="16" r="3" fill="currentColor"/>
+        </svg>
+        <span>SkyConnect</span>
+      </div>
+      <div class="nav-user">
+        <span class="loyalty-badge">SkyGold ✦</span>
+        <span class="user-name">Sarah Chen</span>
+        <div class="avatar">SC</div>
+      </div>
+    </nav>
+
+    <div class="dashboard-content">
+      <div class="welcome-banner">
+        <div class="welcome-text">
+          <h2>Welcome back, Sarah</h2>
+          <p>You have <strong>124,500 SkyMiles</strong> · Next tier: SkyPlatinum (5,500 miles away)</p>
+        </div>
+        <div class="miles-ring">
+          <svg viewBox="0 0 100 100" width="80" height="80">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#0ea5e9" stroke-width="8" 
+                    stroke-dasharray="232" stroke-dashoffset="24" transform="rotate(-90 50 50)" stroke-linecap="round"/>
+            <text x="50" y="47" text-anchor="middle" font-size="14" font-weight="600" fill="#0f172a">96%</text>
+            <text x="50" y="60" text-anchor="middle" font-size="8" fill="#64748b">to next tier</text>
+          </svg>
+        </div>
+      </div>
+
+      <h3 class="section-title">Recent Flights</h3>
+      <div class="flights-list">
+        <!-- Flight 1 - The target flight -->
+        <div class="flight-card" data-flight="SK-1492">
+          <div class="flight-status">
+            <span class="status-dot completed"></span>
+            <span>Completed</span>
+          </div>
+          <div class="flight-route">
+            <div class="airport">
+              <span class="code">SFO</span>
+              <span class="city">San Francisco</span>
+            </div>
+            <div class="flight-line">
+              <div class="plane-icon">✈</div>
+              <div class="line"></div>
+            </div>
+            <div class="airport">
+              <span class="code">JFK</span>
+              <span class="city">New York</span>
+            </div>
+          </div>
+          <div class="flight-details">
+            <div class="detail">
+              <span class="label">Flight</span>
+              <span class="value">SK-1492</span>
+            </div>
+            <div class="detail">
+              <span class="label">Date</span>
+              <span class="value">Feb 28, 2026</span>
+            </div>
+            <div class="detail">
+              <span class="label">Seat</span>
+              <span class="value">14A · Economy Plus</span>
+            </div>
+            <div class="detail">
+              <span class="label">Bags</span>
+              <span class="value">2 checked</span>
+            </div>
+          </div>
+          <div class="flight-actions">
+            <button class="btn btn-outline btn-sm" onclick="showFlightDetails('SK-1492')">View Details</button>
+            <button class="btn btn-warning btn-sm" onclick="showLostBagForm()">Report Lost Bag</button>
+          </div>
+        </div>
+
+        <!-- Flight 2 -->
+        <div class="flight-card" data-flight="SK-0837">
+          <div class="flight-status">
+            <span class="status-dot completed"></span>
+            <span>Completed</span>
+          </div>
+          <div class="flight-route">
+            <div class="airport">
+              <span class="code">JFK</span>
+              <span class="city">New York</span>
+            </div>
+            <div class="flight-line">
+              <div class="plane-icon">✈</div>
+              <div class="line"></div>
+            </div>
+            <div class="airport">
+              <span class="code">LAX</span>
+              <span class="city">Los Angeles</span>
+            </div>
+          </div>
+          <div class="flight-details">
+            <div class="detail">
+              <span class="label">Flight</span>
+              <span class="value">SK-0837</span>
+            </div>
+            <div class="detail">
+              <span class="label">Date</span>
+              <span class="value">Feb 14, 2026</span>
+            </div>
+            <div class="detail">
+              <span class="label">Seat</span>
+              <span class="value">7C · Business</span>
+            </div>
+            <div class="detail">
+              <span class="label">Bags</span>
+              <span class="value">1 checked</span>
+            </div>
+          </div>
+          <div class="flight-actions">
+            <button class="btn btn-outline btn-sm">View Details</button>
+          </div>
+        </div>
+
+        <!-- Flight 3 -->
+        <div class="flight-card" data-flight="SK-2201">
+          <div class="flight-status">
+            <span class="status-dot upcoming"></span>
+            <span>Upcoming</span>
+          </div>
+          <div class="flight-route">
+            <div class="airport">
+              <span class="code">JFK</span>
+              <span class="city">New York</span>
+            </div>
+            <div class="flight-line">
+              <div class="plane-icon">✈</div>
+              <div class="line"></div>
+            </div>
+            <div class="airport">
+              <span class="code">LHR</span>
+              <span class="city">London</span>
+            </div>
+          </div>
+          <div class="flight-details">
+            <div class="detail">
+              <span class="label">Flight</span>
+              <span class="value">SK-2201</span>
+            </div>
+            <div class="detail">
+              <span class="label">Date</span>
+              <span class="value">Mar 15, 2026</span>
+            </div>
+            <div class="detail">
+              <span class="label">Seat</span>
+              <span class="value">2A · First</span>
+            </div>
+            <div class="detail">
+              <span class="label">Bags</span>
+              <span class="value">—</span>
+            </div>
+          </div>
+          <div class="flight-actions">
+            <button class="btn btn-outline btn-sm">Manage Booking</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== LOST BAG FORM ==================== -->
+  <div id="lostbag-screen" class="screen">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <svg viewBox="0 0 48 48" width="32" height="32">
+          <path d="M15 8l9-4 9 4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M4 24h8M36 24h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="24" cy="16" r="3" fill="currentColor"/>
+        </svg>
+        <span>SkyConnect</span>
+      </div>
+      <div class="nav-user">
+        <span class="loyalty-badge">SkyGold ✦</span>
+        <span class="user-name">Sarah Chen</span>
+        <div class="avatar">SC</div>
+      </div>
+    </nav>
+
+    <div class="form-container">
+      <button class="btn-back" onclick="showScreen('dashboard-screen')">← Back to Dashboard</button>
+      
+      <div class="form-header">
+        <div class="form-icon">🧳</div>
+        <h2>Report Lost Baggage</h2>
+        <p>Flight SK-1492 · SFO → JFK · Feb 28, 2026</p>
+      </div>
+
+      <!-- Step indicator -->
+      <div class="steps-indicator">
+        <div class="step active" data-step="1">
+          <div class="step-num">1</div>
+          <span>Bag Details</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" data-step="2">
+          <div class="step-num">2</div>
+          <span>Contents</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" data-step="3">
+          <div class="step-num">3</div>
+          <span>Delivery</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Bag Details -->
+      <div id="step-1" class="form-step active">
+        <div class="form-group">
+          <label>Which bag is missing?</label>
+          <div class="bag-selector">
+            <label class="bag-option selected">
+              <input type="radio" name="bag" value="bag1" checked>
+              <div class="bag-card">
+                <span class="bag-tag">Bag 1</span>
+                <span class="bag-label">Checked — Tag #SK8834721</span>
+              </div>
+            </label>
+            <label class="bag-option">
+              <input type="radio" name="bag" value="bag2">
+              <div class="bag-card">
+                <span class="bag-tag">Bag 2</span>
+                <span class="bag-label">Checked — Tag #SK8834722</span>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bag-color">Bag Color</label>
+            <select id="bag-color">
+              <option value="black" selected>Black</option>
+              <option value="navy">Navy Blue</option>
+              <option value="red">Red</option>
+              <option value="gray">Gray</option>
+              <option value="green">Green</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="bag-type">Bag Type</label>
+            <select id="bag-type">
+              <option value="hardshell" selected>Hard Shell Suitcase</option>
+              <option value="softside">Soft Side Suitcase</option>
+              <option value="duffel">Duffel Bag</option>
+              <option value="garment">Garment Bag</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bag-brand">Brand</label>
+          <input type="text" id="bag-brand" value="Samsonite" placeholder="e.g., Samsonite, Away, Rimowa">
+        </div>
+        <div class="form-group">
+          <label for="bag-desc">Additional Description</label>
+          <textarea id="bag-desc" rows="3" placeholder="Any identifying features — stickers, marks, monogram...">Black Samsonite hardshell with a red luggage tag and TSA lock. Has a small scratch on the right side.</textarea>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="nextStep(2)">Continue</button>
+      </div>
+
+      <!-- Step 2: Contents -->
+      <div id="step-2" class="form-step">
+        <div class="form-group">
+          <label for="contents">Contents Summary</label>
+          <textarea id="contents" rows="4" placeholder="General description of contents for identification...">Clothing, toiletries, a laptop charger, and prescription medication (blood pressure — Lisinopril).</textarea>
+        </div>
+        <div class="form-group">
+          <label>Estimated Value</label>
+          <select id="bag-value">
+            <option value="under500">Under $500</option>
+            <option value="500-1000" selected>$500 – $1,000</option>
+            <option value="1000-2500">$1,000 – $2,500</option>
+            <option value="over2500">Over $2,500</option>
+          </select>
+        </div>
+        <div class="checkbox-group">
+          <label class="checkbox">
+            <input type="checkbox" id="has-medication" checked>
+            <span>Contains prescription medication</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" id="has-fragile">
+            <span>Contains fragile items</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" id="has-electronics">
+            <span>Contains electronics</span>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-outline" onclick="nextStep(1)">Back</button>
+          <button class="btn btn-primary" onclick="nextStep(3)">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Delivery -->
+      <div id="step-3" class="form-step">
+        <div class="form-group">
+          <label>Delivery Address</label>
+          <input type="text" id="address-1" value="425 Park Avenue, Apt 12B" placeholder="Street address">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="city" value="New York" placeholder="City">
+          </div>
+          <div class="form-group">
+            <input type="text" id="state" value="NY" placeholder="State">
+          </div>
+          <div class="form-group">
+            <input type="text" id="zip" value="10022" placeholder="ZIP">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone for Delivery Updates</label>
+          <input type="tel" id="phone" value="(415) 555-0142" placeholder="(xxx) xxx-xxxx">
+        </div>
+        <div class="form-group">
+          <label>Preferred Delivery Window</label>
+          <select id="delivery-window">
+            <option value="anytime" selected>Anytime</option>
+            <option value="morning">Morning (8am–12pm)</option>
+            <option value="afternoon">Afternoon (12pm–5pm)</option>
+            <option value="evening">Evening (5pm–9pm)</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-outline" onclick="nextStep(2)">Back</button>
+          <button class="btn btn-primary" onclick="submitClaim()">Submit Report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CONFIRMATION ==================== -->
+  <div id="confirm-screen" class="screen">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <svg viewBox="0 0 48 48" width="32" height="32">
+          <path d="M15 8l9-4 9 4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M4 24h8M36 24h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="24" cy="16" r="3" fill="currentColor"/>
+        </svg>
+        <span>SkyConnect</span>
+      </div>
+      <div class="nav-user">
+        <span class="loyalty-badge">SkyGold ✦</span>
+        <span class="user-name">Sarah Chen</span>
+        <div class="avatar">SC</div>
+      </div>
+    </nav>
+
+    <div class="confirm-container">
+      <div class="confirm-card">
+        <div class="confirm-icon">✓</div>
+        <h2>Lost Bag Report Submitted</h2>
+        <div class="case-number">
+          <span class="case-label">Case Number</span>
+          <span class="case-id">LB-20260303-0042</span>
+        </div>
+        <div class="confirm-details">
+          <div class="confirm-row">
+            <span>Flight</span>
+            <span>SK-1492 · SFO → JFK</span>
+          </div>
+          <div class="confirm-row">
+            <span>Bag</span>
+            <span>Black Samsonite Hardshell — Tag #SK8834721</span>
+          </div>
+          <div class="confirm-row">
+            <span>Priority</span>
+            <span class="priority-badge">⚕ Medical Contents</span>
+          </div>
+          <div class="confirm-row">
+            <span>Estimated Resolution</span>
+            <span>48–72 hours</span>
+          </div>
+          <div class="confirm-row">
+            <span>Delivery To</span>
+            <span>425 Park Avenue, Apt 12B, New York, NY</span>
+          </div>
+        </div>
+        <div class="confirm-notice">
+          <p>📧 A confirmation email has been sent to <strong>sarah.chen@email.com</strong></p>
+          <p>📱 You'll receive SMS updates at (415) 555-0142</p>
+        </div>
+        <div class="confirm-actions">
+          <button class="btn btn-primary" onclick="showScreen('tracker-screen')">Track My Bag</button>
+          <button class="btn btn-outline" onclick="showScreen('dashboard-screen')">Back to Dashboard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== BAG TRACKER + CHAT ==================== -->
+  <div id="tracker-screen" class="screen">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <svg viewBox="0 0 48 48" width="32" height="32">
+          <path d="M15 8l9-4 9 4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M4 24h8M36 24h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="24" cy="16" r="3" fill="currentColor"/>
+        </svg>
+        <span>SkyConnect</span>
+      </div>
+      <div class="nav-user">
+        <span class="loyalty-badge">SkyGold ✦</span>
+        <span class="user-name">Sarah Chen</span>
+        <div class="avatar">SC</div>
+      </div>
+    </nav>
+
+    <div class="tracker-content">
+      <button class="btn-back" onclick="showScreen('confirm-screen')">← Back</button>
+      
+      <div class="tracker-header">
+        <h2>Bag Tracker</h2>
+        <span class="case-ref">Case #LB-20260303-0042</span>
+      </div>
+
+      <div class="tracker-timeline">
+        <div class="timeline-item completed">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">Feb 28, 11:42 PM</span>
+            <span class="timeline-event">Report submitted</span>
+          </div>
+        </div>
+        <div class="timeline-item completed">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">Mar 1, 6:15 AM</span>
+            <span class="timeline-event">Bag located at JFK International</span>
+          </div>
+        </div>
+        <div class="timeline-item active">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">Mar 1, 2:30 PM</span>
+            <span class="timeline-event">In transit to delivery address</span>
+            <span class="timeline-detail">Via SkyConnect Ground Services</span>
+          </div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-event">Out for delivery</span>
+          </div>
+        </div>
+        <div class="timeline-item pending">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-event">Delivered</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tracker-eta">
+        <span class="eta-label">Estimated Delivery</span>
+        <span class="eta-value">Tomorrow, Mar 3 · 2:00–6:00 PM</span>
+      </div>
+
+      <div class="help-banner" onclick="openChat()">
+        <div class="help-icon">💬</div>
+        <div class="help-text">
+          <strong>Have a question?</strong>
+          <span>Chat with us about your lost bag case</span>
+        </div>
+        <div class="help-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="chat-widget hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">S</div>
+          <div>
+            <strong>SkyConnect Support</strong>
+            <span class="chat-status">Online</span>
+          </div>
+        </div>
+        <button class="chat-close" onclick="closeChat()">✕</button>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <!-- Messages will be injected here -->
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Type your message..." onkeydown="if(event.key==='Enter')sendMessage()">
+        <button class="chat-send" onclick="sendMessage()">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat FAB (when widget is closed) -->
+    <button id="chat-fab" class="chat-fab" onclick="openChat()">
+      💬
+    </button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
