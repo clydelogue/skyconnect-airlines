@@ -1,0 +1,93 @@
+{
+    "Version": "2019-10-30",
+    "StartAction": "67e98398-baeb-46a2-8e83-6c70e2b008d2",
+    "Metadata": {
+        "entryPointPosition": {
+            "x": 15,
+            "y": 15
+        },
+        "snapToGrid": false,
+        "ActionMetadata": {
+            "67e98398-baeb-46a2-8e83-6c70e2b008d2": {
+                "position": {
+                    "x": 200,
+                    "y": 20
+                }
+            },
+            "4f8662ac-e582-466a-a0a0-f3ca547d7eb8": {
+                "position": {
+                    "x": 200,
+                    "y": 200
+                }
+            },
+            "1fbf7cea-3211-40fc-98f3-385a5f79e21f": {
+                "position": {
+                    "x": 200,
+                    "y": 400
+                }
+            },
+            "ab16436f-fbd8-42f7-b76a-86f90c7bb315": {
+                "position": {
+                    "x": 200,
+                    "y": 600
+                }
+            }
+        }
+    },
+    "Actions": [
+        {
+            "Identifier": "67e98398-baeb-46a2-8e83-6c70e2b008d2",
+            "Type": "MessageParticipant",
+            "Parameters": {
+                "Text": "Welcome to SkyConnect Airlines! Connecting you with a baggage specialist."
+            },
+            "Transitions": {
+                "NextAction": "4f8662ac-e582-466a-a0a0-f3ca547d7eb8",
+                "Errors": [],
+                "Conditions": []
+            }
+        },
+        {
+            "Identifier": "4f8662ac-e582-466a-a0a0-f3ca547d7eb8",
+            "Type": "UpdateContactTargetQueue",
+            "Parameters": {
+                "QueueId": "arn:aws:connect:us-east-1:560576351083:instance/524d1a50-ebd2-49f9-8949-a9faf9076635/queue/171d2b42-bc7c-4f28-baea-6bb65b152cd2"
+            },
+            "Transitions": {
+                "NextAction": "1fbf7cea-3211-40fc-98f3-385a5f79e21f",
+                "Errors": [
+                    {
+                        "NextAction": "ab16436f-fbd8-42f7-b76a-86f90c7bb315",
+                        "ErrorType": "NoMatchingError"
+                    }
+                ],
+                "Conditions": []
+            }
+        },
+        {
+            "Identifier": "1fbf7cea-3211-40fc-98f3-385a5f79e21f",
+            "Type": "TransferContactToQueue",
+            "Parameters": {},
+            "Transitions": {
+                "NextAction": "ab16436f-fbd8-42f7-b76a-86f90c7bb315",
+                "Errors": [
+                    {
+                        "NextAction": "ab16436f-fbd8-42f7-b76a-86f90c7bb315",
+                        "ErrorType": "QueueAtCapacity"
+                    },
+                    {
+                        "NextAction": "ab16436f-fbd8-42f7-b76a-86f90c7bb315",
+                        "ErrorType": "NoMatchingError"
+                    }
+                ],
+                "Conditions": []
+            }
+        },
+        {
+            "Identifier": "ab16436f-fbd8-42f7-b76a-86f90c7bb315",
+            "Type": "DisconnectParticipant",
+            "Parameters": {},
+            "Transitions": {}
+        }
+    ]
+}
