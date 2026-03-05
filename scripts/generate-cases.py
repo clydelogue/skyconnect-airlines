@@ -19,8 +19,8 @@ import sys
 # ============================================================================
 # CONFIG
 # ============================================================================
-DOMAIN_ID = "619daed1-2572-4c78-8ecb-bdf7f27aee94"
-TEMPLATE_ID = "09e1a574-338f-4fcd-9678-59e4bba6403a"  # SkyConnect Case
+DOMAIN_ID = "e71fc22e-8b4d-47c9-84d7-e7de24cf8ecb"
+TEMPLATE_ID = "40d32841-c13c-44e4-809a-dfdbed1cc83d"  # SkyConnect Case
 PROFILES_DOMAIN = "amazon-connect-loguclyd-demo"
 REGION = "us-east-1"
 TOTAL_CASES = 200
@@ -37,23 +37,23 @@ profiles_client = boto3.client('customer-profiles', region_name=REGION)
 F = {
     "title": "title", "summary": "summary", "case_reason": "case_reason",
     "customer_id": "customer_id", "status": "status",
-    "Priority": "5397f95d-bbe3-43ef-b692-e4fcb7101c27",
-    "FlightNumber": "ab42049b-7108-49c9-a2e8-bfe77621bf8e",
-    "BagDescription": "828f3b5a-ac83-4cc0-b168-3c40fe9cac92",
-    "BagTagNumber": "ea74dd87-6cf9-4d18-ab2b-e0f6c365ed28",
-    "BagColor": "565207ab-14bf-4e08-857d-98166537eceb",
-    "BagType": "aad15774-f08c-4fe3-b2a6-9a7df4112621",
-    "ContentsDescription": "108e541b-0176-4424-a438-7164fb35e751",
-    "ContainsMedication": "094433fc-27fb-4d2b-95c6-a8cbf85fabd4",
-    "EstimatedValue": "ca9b6e83-db69-411f-82b8-27e92e3da393",
-    "DeliveryAddress": "9805b2e5-fa84-4e79-adde-7d82007f155a",
-    "BagPriority": "19101feb-856f-45d5-aaab-7aac86f29e9e",
-    "DamageDescription": "6f38e514-18d9-4042-99ee-7c3a36ca9d5c",
-    "ClaimAmount": "7ada8a1c-3845-4734-903a-8e9a1dd4573b",
-    "DamageLocation": "a45469a3-32e4-4e22-9038-0a89484ee341",
-    "ItemValue": "1bd0b729-ff9c-4a53-a9d8-3f86dfeb7da9",
-    "PurchaseDate": "5ff04c1e-6f50-4963-99d1-abf4a94e74d9",
-    "ContactInfo": "fc263e4c-5491-43aa-81da-acc1a4afcb75",
+    "Priority": "8b1cf243-4427-4647-8648-c2d26889f915",
+    "FlightNumber": "0901cf55-8ca4-4967-b578-6cb6d88fe101",
+    "BagDescription": "85d47d9a-7e94-4f1a-a21a-3a0c96c3360d",
+    "BagTagNumber": "fec43030-f5cc-48b6-98c1-c92bf0a9e819",
+    "BagColor": "80c76191-991a-4df2-bf30-6b3c468f63ad",
+    "BagType": "a090c324-c6f4-49d3-84c9-23dc3cd18627",
+    "ContentsDescription": "d4ee3c8e-e3fa-4a24-81e2-76c73d71811a",
+    "ContainsMedication": "11bed2bd-982a-48a8-9883-66b3c09f41f6",
+    "EstimatedValue": "bfd932c8-0471-4cc0-bb92-9b454e8820fa",
+    "DeliveryAddress": "2ee2a912-9a61-460f-9ff2-5c0eaf38cbdf",
+    "BagPriority": "db63a574-6a20-4eb3-b4ff-8d1809fa3c82",
+    "DamageDescription": "741b3f0a-c644-46a3-b69f-1ad071d57efb",
+    "ClaimAmount": "9e8ef641-3a90-47bd-9b64-2f3b073ff722",
+    "DamageLocation": "c6fbc999-6073-4d05-b1c2-61d5b8bc8b17",
+    "ItemValue": "32c7e66c-f40c-428b-8c43-7fa0ccf2b317",
+    "PurchaseDate": "8ba73133-8aa6-4da3-8e34-cb0ed956137c",
+    "ContactInfo": "8efaa698-6864-4ab3-ab4d-70bfa46de77e",
 }
 
 
@@ -325,7 +325,7 @@ def main():
 
     # ---- Step 1: Create 149 fresh profiles + Sarah Chen ----
     print("\n[1/3] Creating 149 customer profiles...", flush=True)
-    profiles = [{"profileId": "2377c70be0e24988a13d156ecdcb9724", "name": "Sarah Chen"}]
+    profiles = [{"profileId": "fcc4384327bf43caa1e76176b39afa7f", "name": "Sarah Chen"}]
     used_emails = set()
     errors = 0
 

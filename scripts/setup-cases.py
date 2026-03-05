@@ -9,9 +9,9 @@ import json
 import sys
 import time
 
-DOMAIN_ID = "619daed1-2572-4c78-8ecb-bdf7f27aee94"
+DOMAIN_ID = "e71fc22e-8b4d-47c9-84d7-e7de24cf8ecb"
 REGION = "us-east-1"
-TEMPLATE_ID = "09e1a574-338f-4fcd-9678-59e4bba6403a"  # Lost Baggage template
+TEMPLATE_ID = "40d32841-c13c-44e4-809a-dfdbed1cc83d"  # SkyConnect Case template
 
 client = boto3.client('connectcases', region_name=REGION)
 
@@ -56,6 +56,13 @@ FIELDS_TO_CREATE = [
     ("BagType", "SingleSelect", "Type of bag"),
     ("ContainsMedication", "Boolean", "Whether bag contains prescription medication"),
     ("EstimatedValue", "SingleSelect", "Estimated value range of bag contents"),
+    # Lost Baggage core fields (previously created separately)
+    ("FlightNumber", "Text", "Flight number"),
+    ("BagDescription", "Text", "Description of the bag"),
+    ("BagTagNumber", "Text", "Bag tag number"),
+    ("ContentsDescription", "Text", "Description of bag contents"),
+    ("DeliveryAddress", "Text", "Delivery address for recovered bag"),
+    ("BagPriority", "SingleSelect", "Bag recovery priority level"),
     # Damaged Item specific (hidden by default, shown when case_reason = Damaged Item)  
     ("DamageDescription", "Text", "Description of the damage"),
     ("ItemValue", "Text", "Value of the damaged item"),
@@ -83,11 +90,7 @@ for name, ftype, desc in FIELDS_TO_CREATE:
         except Exception as e:
             print(f"   ❌ {name}: {e}", flush=True)
 
-# Add existing bag fields to our map
-for name in ["FlightNumber", "BagDescription", "BagTagNumber", "ContentsDescription", 
-             "DeliveryAddress", "BagPriority"]:
-    if name in existing_fields:
-        field_ids[name] = existing_fields[name]["fieldId"]
+# Bag fields are now created above in FIELDS_TO_CREATE, no separate lookup needed
 
 # System field IDs
 SYSTEM_FIELDS = {
@@ -268,7 +271,7 @@ for panel in ["topPanel", "moreInfo"]:
     for section in panel_data["sections"]:
         if "fieldGroup" in section:
             section["fieldGroup"]["fields"] = [
-                f for f in section["fieldGroup"]["fields"] if f["fieldId"]
+                f for f in section["fieldGroup"]["fields"] if f.get("id")
             ]
 
 try:
