@@ -218,7 +218,7 @@ def main():
     parser = argparse.ArgumentParser(description="Generate Connect Customer Profiles")
     parser.add_argument("--count", type=int, default=2000, help="Number of profiles (default: 2000)")
     parser.add_argument("--dry-run", action="store_true", help="Generate but don't upload")
-    parser.add_argument("--domain", default="loguclyd-demo", help="Customer Profiles domain name")
+    parser.add_argument("--domain", default="amazon-connect-loguclyd-demo2", help="Customer Profiles domain name")
     parser.add_argument("--region", default="us-east-1", help="AWS region")
     parser.add_argument("--threads", type=int, default=10, help="Parallel upload threads")
     parser.add_argument("--output", type=str, help="Save generated profiles to JSON file")

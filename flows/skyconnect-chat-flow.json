@@ -1,6 +1,6 @@
 {
     "Version": "2019-10-30",
-    "StartAction": "welcome-msg",
+    "StartAction": "check-medication",
     "Metadata": {
         "entryPointPosition": {
             "x": 15,
@@ -8,44 +8,95 @@
         },
         "snapToGrid": false,
         "ActionMetadata": {
-            "welcome-msg": {
-                "position": {
-                    "x": 200,
-                    "y": 20
-                }
+            "check-medication": {
+                "position": { "x": 200, "y": 20 },
+                "conditionMetadata": [
+                    {
+                        "id": "med-condition",
+                        "operator": { "name": "Equals", "value": "Equals", "shortDisplay": "equals" },
+                        "value": "true"
+                    }
+                ]
+            },
+            "urgent-greeting": {
+                "position": { "x": 50, "y": 180 }
+            },
+            "standard-greeting": {
+                "position": { "x": 400, "y": 180 }
             },
             "get-customer-profile": {
-                "position": {
-                    "x": 200,
-                    "y": 200
+                "position": { "x": 200, "y": 350 }
+            },
+            "create-wisdom-session": {
+                "position": { "x": 200, "y": 530 },
+                "children": ["update-contact-data"],
+                "parameters": {
+                    "WisdomAssistantArn": {
+                        "displayName": "arn:aws:wisdom:us-east-1:560576351083:assistant/9caf3204-93d8-4214-b557-6a21d1b74f25"
+                    }
+                },
+                "fragments": {
+                    "SetContactData": "update-contact-data"
                 }
+            },
+            "update-contact-data": {
+                "position": { "x": 200, "y": 530 },
+                "dynamicParams": []
             },
             "set-queue": {
-                "position": {
-                    "x": 200,
-                    "y": 450
-                }
+                "position": { "x": 200, "y": 700 }
             },
             "transfer-to-queue": {
-                "position": {
-                    "x": 200,
-                    "y": 650
-                }
+                "position": { "x": 200, "y": 870 }
             },
             "disconnect": {
-                "position": {
-                    "x": 200,
-                    "y": 850
-                }
+                "position": { "x": 200, "y": 1040 }
             }
         }
     },
     "Actions": [
         {
-            "Identifier": "welcome-msg",
+            "Identifier": "check-medication",
+            "Type": "Compare",
+            "Parameters": {
+                "ComparisonValue": "$.Attributes.hasMedication"
+            },
+            "Transitions": {
+                "NextAction": "standard-greeting",
+                "Conditions": [
+                    {
+                        "NextAction": "urgent-greeting",
+                        "Condition": {
+                            "Operator": "Equals",
+                            "Operands": ["true"]
+                        }
+                    }
+                ],
+                "Errors": [
+                    {
+                        "NextAction": "standard-greeting",
+                        "ErrorType": "NoMatchingCondition"
+                    }
+                ]
+            }
+        },
+        {
+            "Identifier": "urgent-greeting",
             "Type": "MessageParticipant",
             "Parameters": {
-                "Text": "Welcome to SkyConnect Airlines! Let me look up your profile."
+                "Text": "Welcome to SkyConnect Airlines. I can see you've reported a lost bag containing prescription medication — this has been flagged as a high-priority case. Let me connect you with our priority support team right away."
+            },
+            "Transitions": {
+                "NextAction": "get-customer-profile",
+                "Errors": [],
+                "Conditions": []
+            }
+        },
+        {
+            "Identifier": "standard-greeting",
+            "Type": "MessageParticipant",
+            "Parameters": {
+                "Text": "Welcome to SkyConnect Airlines! I'm here to help with your lost baggage case. Let me look up your profile."
             },
             "Transitions": {
                 "NextAction": "get-customer-profile",
@@ -69,22 +120,54 @@
                 ]
             },
             "Transitions": {
-                "NextAction": "set-queue",
+                "NextAction": "create-wisdom-session",
                 "Errors": [
                     {
-                        "NextAction": "set-queue",
+                        "NextAction": "create-wisdom-session",
                         "ErrorType": "MultipleFoundError"
                     },
                     {
-                        "NextAction": "set-queue",
+                        "NextAction": "create-wisdom-session",
                         "ErrorType": "NoneFoundError"
                     },
                     {
-                        "NextAction": "set-queue",
+                        "NextAction": "create-wisdom-session",
                         "ErrorType": "NoMatchingError"
                     }
                 ],
                 "Conditions": []
+            }
+        },
+        {
+            "Identifier": "create-wisdom-session",
+            "Type": "CreateWisdomSession",
+            "Parameters": {
+                "WisdomAssistantArn": "arn:aws:wisdom:us-east-1:560576351083:assistant/9caf3204-93d8-4214-b557-6a21d1b74f25"
+            },
+            "Transitions": {
+                "NextAction": "update-contact-data",
+                "Errors": [
+                    {
+                        "NextAction": "set-queue",
+                        "ErrorType": "NoMatchingError"
+                    }
+                ]
+            }
+        },
+        {
+            "Identifier": "update-contact-data",
+            "Type": "UpdateContactData",
+            "Parameters": {
+                "WisdomSessionArn": "$.Wisdom.SessionArn"
+            },
+            "Transitions": {
+                "NextAction": "set-queue",
+                "Errors": [
+                    {
+                        "NextAction": "set-queue",
+                        "ErrorType": "NoMatchingError"
+                    }
+                ]
             }
         },
         {

@@ -21,7 +21,7 @@ import sys
 # ============================================================================
 DOMAIN_ID = "e71fc22e-8b4d-47c9-84d7-e7de24cf8ecb"
 TEMPLATE_ID = "40d32841-c13c-44e4-809a-dfdbed1cc83d"  # SkyConnect Case
-PROFILES_DOMAIN = "amazon-connect-loguclyd-demo"
+PROFILES_DOMAIN = "amazon-connect-loguclyd-demo2"
 REGION = "us-east-1"
 TOTAL_CASES = 200
 MAX_CASES_PER_CUSTOMER = 2
@@ -325,7 +325,7 @@ def main():
 
     # ---- Step 1: Create 149 fresh profiles + Sarah Chen ----
     print("\n[1/3] Creating 149 customer profiles...", flush=True)
-    profiles = [{"profileId": "fcc4384327bf43caa1e76176b39afa7f", "name": "Sarah Chen"}]
+    profiles = [{"profileId": "1fc1ea045c974a3dbca103099643b653", "name": "Sarah Chen"}]
     used_emails = set()
     errors = 0
 
