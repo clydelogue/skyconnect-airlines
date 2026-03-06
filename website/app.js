@@ -46,16 +46,140 @@ document.querySelectorAll('.bag-option').forEach(opt => {
   });
 });
 
+const CASE_API_URL = 'https://8sb418qbyc.execute-api.us-east-1.amazonaws.com/prod/create-case';
+
 function submitClaim() {
-  // Simulate loading
   const btn = event.target;
   btn.textContent = 'Submitting...';
   btn.disabled = true;
-  setTimeout(() => {
+
+  // Collect form data
+  const selectedBag = document.querySelector('input[name="bag"]:checked');
+  const bagTag = selectedBag && selectedBag.value === 'bag1' ? 'SK8834721' : 'SK8834722';
+  const bagColor = document.getElementById('bag-color').value;
+  const bagType = document.getElementById('bag-type').value;
+  const bagBrand = document.getElementById('bag-brand').value;
+  const bagDesc = document.getElementById('bag-desc').value;
+  const contents = document.getElementById('contents').value;
+  const hasMedication = document.getElementById('has-medication').checked;
+  const address1 = document.getElementById('address-1').value;
+  const city = document.getElementById('city').value;
+  const state = document.getElementById('state').value;
+  const zip = document.getElementById('zip').value;
+
+  const payload = {
+    email: 'sarah.chen@email.com',
+    flightNumber: 'SK-1492',
+    bagTag: bagTag,
+    bagDescription: `${bagColor} ${bagBrand} ${bagType}. ${bagDesc}`,
+    contents: contents,
+    deliveryAddress: `${address1}, ${city}, ${state} ${zip}`,
+    hasMedication: hasMedication,
+    caseReason: 'Lost Baggage'
+  };
+
+  fetch(CASE_API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(resp => resp.json())
+  .then(data => {
     btn.textContent = 'Submit Report';
     btn.disabled = false;
-    showScreen('confirm-screen');
-  }, 1500);
+
+    if (data.success) {
+      // Update confirmation screen with real case ID
+      const caseIdEl = document.querySelector('.case-id');
+      if (caseIdEl) caseIdEl.textContent = data.caseId;
+
+      // Update priority badge if medical
+      const priorityBadge = document.querySelector('.priority-badge');
+      if (priorityBadge) {
+        priorityBadge.textContent = data.priority === 'High' ? '⚕ Medical Contents — High Priority' : '📦 Standard Priority';
+      }
+
+      // Store case data for chat widget
+      window.lastCaseData = {
+        caseId: data.caseId,
+        priority: data.priority,
+        hasMedication: hasMedication,
+        email: payload.email,
+        flightNumber: payload.flightNumber
+      };
+
+      showScreen('confirm-screen');
+
+      // Auto-open Connect chat widget for urgent (medication) cases
+      if (hasMedication) {
+        setTimeout(() => triggerProactiveChat(data), 1500);
+      }
+    } else {
+      alert('Error creating case: ' + (data.error || 'Unknown error'));
+    }
+  })
+  .catch(err => {
+    btn.textContent = 'Submit Report';
+    btn.disabled = false;
+    console.error('Case creation error:', err);
+    alert('Failed to submit report. Please try again.');
+  });
+}
+
+// ===== PROACTIVE CHAT ENGAGEMENT =====
+function triggerProactiveChat(caseData) {
+  // Update Connect chat widget contact attributes with case context
+  if (typeof amazon_connect === 'function') {
+    amazon_connect('contactAttributes', {
+      customerEmail: 'sarah.chen@email.com',
+      customerName: 'Sarah Chen',
+      loyaltyTier: 'SkyGold',
+      caseId: caseData.caseId || '',
+      priority: caseData.priority || 'Standard',
+      hasMedication: 'true',
+      flightNumber: 'SK-1492',
+      caseReason: 'Lost Baggage'
+    });
+  }
+
+  // Show proactive chat banner on confirmation screen
+  showProactiveChatBanner();
+}
+
+function showProactiveChatBanner() {
+  // Check if banner already exists
+  if (document.getElementById('proactive-chat-banner')) return;
+
+  const confirmCard = document.querySelector('.confirm-card');
+  if (!confirmCard) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'proactive-chat-banner';
+  banner.className = 'proactive-chat-banner';
+  banner.innerHTML = '<div class="proactive-chat-icon">\u2695\uFE0F\uD83D\uDCAC</div>'
+    + '<div class="proactive-chat-text">'
+    + '<strong>Priority Support Available</strong>'
+    + '<span>Your case contains medication \u2014 chat with our priority team now for expedited help.</span>'
+    + '</div>'
+    + '<button class="btn btn-primary btn-sm" onclick="openConnectChat()">Chat Now</button>';
+
+  // Insert after the confirm-notice section
+  const confirmNotice = confirmCard.querySelector('.confirm-notice');
+  if (confirmNotice) {
+    confirmNotice.after(banner);
+  } else {
+    confirmCard.appendChild(banner);
+  }
+
+  // Pulse animation to draw attention
+  setTimeout(() => banner.classList.add('visible'), 100);
+}
+
+function openConnectChat() {
+  // Programmatically open the Amazon Connect hosted chat widget
+  if (typeof amazon_connect === 'function') {
+    amazon_connect('openChat');
+  }
 }
 
 // ===== CHAT =====

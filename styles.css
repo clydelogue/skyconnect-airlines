@@ -223,3 +223,35 @@ a:hover { text-decoration: underline; }
   .form-row { grid-template-columns: 1fr; }
   .form-row:has(> :nth-child(3)) { grid-template-columns: 1fr; }
 }
+
+
+/* ===== PROACTIVE CHAT BANNER ===== */
+.proactive-chat-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 1px solid #f59e0b;
+  border-radius: var(--radius);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.4s ease;
+  animation: none;
+}
+.proactive-chat-banner.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: pulse-border 2s ease-in-out 3;
+}
+@keyframes pulse-border {
+  0%, 100% { border-color: #f59e0b; box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+  50% { border-color: #d97706; box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15); }
+}
+.proactive-chat-icon { font-size: 28px; flex-shrink: 0; }
+.proactive-chat-text { flex: 1; }
+.proactive-chat-text strong { display: block; font-size: 14px; color: #92400e; margin-bottom: 2px; }
+.proactive-chat-text span { font-size: 13px; color: #78350f; }
+.proactive-chat-banner .btn { flex-shrink: 0; background: #d97706; }
+.proactive-chat-banner .btn:hover { background: #b45309; }
