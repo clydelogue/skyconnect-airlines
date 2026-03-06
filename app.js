@@ -176,10 +176,8 @@ function showProactiveChatBanner() {
 }
 
 function openConnectChat() {
-  // Programmatically open the Amazon Connect hosted chat widget via stored callback
-  if (typeof window.connectLaunchChat === 'function') {
-    window.connectLaunchChat();
-  }
+  var btn = document.getElementById("amazon-connect-open-widget-button");
+  if (btn) btn.click();
 }
 
 // ===== CHAT =====

@@ -22,11 +22,6 @@
     amazon_connect('customerName', 'Sarah Chen');
     amazon_connect('contactAttributes', { customerEmail: 'sarah.chen@email.com', customerName: 'Sarah Chen', loyaltyTier: 'SkyGold' });
     amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response' ]);
-    amazon_connect('customLaunchBehavior', {
-      programmaticLaunch: function(launchCallback) {
-        window.connectLaunchChat = launchCallback;
-      }
-    });
   </script>
 </head>
 <body>
