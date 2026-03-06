@@ -145,12 +145,8 @@ function triggerProactiveChat(caseData) {
   // Show proactive chat banner on confirmation screen
   showProactiveChatBanner();
 
-  // Auto-open the Connect chat widget
-  if (typeof amazon_connect === 'function') {
-    amazon_connect('customLaunchBehavior', {
-      skipIconButtonAndAutoLaunch: true
-    });
-  }
+  // Auto-open the Connect chat widget by clicking its button
+  setTimeout(function() { openConnectChat(); }, 500);
 }
 
 function showProactiveChatBanner() {
