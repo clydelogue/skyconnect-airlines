@@ -176,9 +176,9 @@ function showProactiveChatBanner() {
 }
 
 function openConnectChat() {
-  // Programmatically open the Amazon Connect hosted chat widget
-  if (typeof amazon_connect === 'function') {
-    amazon_connect('openChat');
+  // Programmatically open the Amazon Connect hosted chat widget via stored callback
+  if (typeof window.connectLaunchChat === 'function') {
+    window.connectLaunchChat();
   }
 }
 
