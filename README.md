@@ -1,4 +1,4 @@
-# loguclyd-demo
+# SkyConnect Airlines Demo
 
 Amazon Connect demo instance configuration and assets for the **SkyConnect Airlines — Lost Baggage** end-to-end demo flow.
 
@@ -17,21 +17,18 @@ An airline customer reports a lost bag via a self-service website, chats with an
 
 | Property | Value |
 |----------|-------|
-| Alias | loguclyd-demo |
-| Instance ID | REDACTED-INSTANCE-ID |
 | Region | us-east-1 |
-| Admin URL | https://loguclyd-demo.my.connect.aws/ |
 
 ## Project Structure
 
 ```
-loguclyd-demo/
+skyconnect-airlines/
 ├── README.md
+├── index.html        # Mock airline website entry
+├── app.js            # Website logic
+├── styles.css
 ├── website/          # Mock airline website (HTML/JS/CSS)
-├── flows/            # Connect contact flow exports
-├── guides/           # Guide definitions
-├── knowledge/        # Q in Connect knowledge base content
-└── scripts/          # Demo reset & setup scripts
+└── knowledge/        # Q in Connect knowledge base content
 ```
 
 ## Getting Started
